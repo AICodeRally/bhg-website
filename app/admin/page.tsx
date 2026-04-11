@@ -47,7 +47,7 @@ export default function AdminDashboard() {
     }
 
     const fetchContent = async () => {
-      const response = await fetch('/public/content.json')
+      const response = await fetch('/content.json')
       const data = await response.json()
       setContent(data)
     }
