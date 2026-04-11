@@ -1,0 +1,141 @@
+{
+  "sequences": [
+    {
+      "id": "awareness",
+      "name": "Awareness Nurture",
+      "description": "For leads from homepage CTA or general interest",
+      "emails": [
+        {
+          "id": "awareness_1",
+          "order": 1,
+          "delay": 0,
+          "subject": "Thanks for your interest in ICM optimization",
+          "preheader": "Here's what we've learned about unlock platform ROI",
+          "template": "awareness_welcome"
+        },
+        {
+          "id": "awareness_2",
+          "order": 2,
+          "delay": 2,
+          "subject": "How a Fortune 500 company compressed their comp cycle by 62%",
+          "preheader": "Real ROI from real companies",
+          "template": "awareness_case_study"
+        },
+        {
+          "id": "awareness_3",
+          "order": 3,
+          "delay": 5,
+          "subject": "The 7 common setup mistakes we see (and how to fix them)",
+          "preheader": "Avoid these pitfalls",
+          "template": "awareness_tips"
+        },
+        {
+          "id": "awareness_4",
+          "order": 4,
+          "delay": 10,
+          "subject": "Ready to assess your situation?",
+          "preheader": "Take the 5-minute assessment",
+          "template": "awareness_cta"
+        }
+      ]
+    },
+    {
+      "id": "compression_gap",
+      "name": "Compression Cycle Gap",
+      "description": "For leads identified with compression cycle issues",
+      "emails": [
+        {
+          "id": "compression_1",
+          "order": 1,
+          "delay": 0,
+          "subject": "You have a compression cycle optimization opportunity",
+          "preheader": "Here's what we found",
+          "template": "compression_results"
+        },
+        {
+          "id": "compression_2",
+          "order": 2,
+          "delay": 3,
+          "subject": "How we helped a distributor compress from 8 weeks to 4 weeks",
+          "preheader": "Real example, real results",
+          "template": "compression_case_study"
+        },
+        {
+          "id": "compression_3",
+          "order": 3,
+          "delay": 7,
+          "subject": "5 ways to accelerate your compression cycle",
+          "preheader": "Quick wins you can implement now",
+          "template": "compression_tips"
+        },
+        {
+          "id": "compression_4",
+          "order": 4,
+          "delay": 14,
+          "subject": "Schedule a 30-minute optimization call",
+          "preheader": "Let's discuss your specific situation",
+          "template": "compression_consultation"
+        }
+      ]
+    },
+    {
+      "id": "manual_work_gap",
+      "name": "Manual Work Gap",
+      "description": "For leads with excessive manual processes",
+      "emails": [
+        {
+          "id": "manual_1",
+          "order": 1,
+          "delay": 0,
+          "subject": "You have a manual process optimization opportunity",
+          "preheader": "Here's what we found",
+          "template": "manual_results"
+        },
+        {
+          "id": "manual_2",
+          "order": 2,
+          "delay": 3,
+          "subject": "How we eliminated 95% of manual work for a tech company",
+          "preheader": "Real example, real results",
+          "template": "manual_case_study"
+        },
+        {
+          "id": "manual_3",
+          "order": 3,
+          "delay": 7,
+          "subject": "Common spreadsheet workflows we automate",
+          "preheader": "Typical manual processes and solutions",
+          "template": "manual_tips"
+        },
+        {
+          "id": "manual_4",
+          "order": 4,
+          "delay": 14,
+          "subject": "Let's talk about automation opportunities",
+          "preheader": "Schedule a conversation",
+          "template": "manual_consultation"
+        }
+      ]
+    }
+  ],
+  "variables": {
+    "lead": ["{{first_name}}", "{{company}}", "{{email}}"],
+    "company": ["{{company_name}}", "{{industry}}", "{{team_size}}"],
+    "assessment": ["{{gap_type}}", "{{gap_score}}", "{{cycle_length}}", "{{manual_work_percent}}"]
+  },
+  "send_settings": {
+    "from_name": "BHG Optimization Team",
+    "from_email": "hello@bluehorizonsgroup.com",
+    "reply_to": "hello@bluehorizonsgroup.com",
+    "track_opens": true,
+    "track_clicks": true
+  },
+  "integration_notes": "These templates are designed to be flexible. You can:",
+  "usage": [
+    "1. Export as HTML and use with your email service (Sendgrid, Mailgun, AWS SES)",
+    "2. Use the template IDs to map to your own email template system",
+    "3. Replace variable placeholders with your CRM data",
+    "4. Customize subject lines and content for your brand voice",
+    "5. Set up automation rules to trigger sequences based on lead attributes"
+  ]
+}
