@@ -1,0 +1,113 @@
+{
+  "questions": [
+    {
+      "id": "cycleLength",
+      "type": "range",
+      "question": "How long does your compression cycle typically take?",
+      "description": "Time from final numbers to compensation reporting",
+      "min": 1,
+      "max": 16,
+      "minLabel": "1 week",
+      "maxLabel": "16+ weeks",
+      "defaultValue": 8
+    },
+    {
+      "id": "manualWork",
+      "type": "percentage",
+      "question": "What percentage of your comp process is manual?",
+      "description": "Includes spreadsheets, email, manual data entry, reconciliation",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "defaultValue": 50
+    },
+    {
+      "id": "visibilityScore",
+      "type": "scale",
+      "question": "How easily can you forecast impact of comp changes?",
+      "description": "Real-time visibility into what-if scenarios",
+      "scale": [
+        { "value": 1, "label": "Not at all" },
+        { "value": 2, "label": "Very difficult" },
+        { "value": 3, "label": "Somewhat difficult" },
+        { "value": 4, "label": "Mostly easy" },
+        { "value": 5, "label": "Very easy" }
+      ]
+    },
+    {
+      "id": "dataQuality",
+      "type": "scale",
+      "question": "How confident are you in your data quality?",
+      "description": "Accuracy and completeness of territories, quotas, and performance data",
+      "scale": [
+        { "value": 1, "label": "Very poor" },
+        { "value": 2, "label": "Poor" },
+        { "value": 3, "label": "Adequate" },
+        { "value": 4, "label": "Good" },
+        { "value": 5, "label": "Excellent" }
+      ]
+    },
+    {
+      "id": "painPoints",
+      "type": "checkbox",
+      "question": "What's slowing you down? (Select all that apply)",
+      "options": [
+        { "value": "cycles", "label": "Long compression cycles", "gapType": "Compression" },
+        { "value": "manual", "label": "Manual processes & spreadsheets", "gapType": "ManualWork" },
+        { "value": "visibility", "label": "Lack of real-time visibility", "gapType": "Visibility" },
+        { "value": "data", "label": "Data quality & integration issues", "gapType": "DataQuality" },
+        { "value": "forecasting", "label": "Can't forecast impact of changes", "gapType": "Visibility" }
+      ]
+    }
+  ],
+  "gapTypes": [
+    {
+      "id": "Compression",
+      "name": "Compression Cycle Gap",
+      "description": "Your compensation cycle takes longer than it should",
+      "impact": "Sales teams wait weeks for comp clarity. Finance has too many manual touchpoints.",
+      "solution": "Compress cycles from 8 weeks to 3 weeks with automation and streamlined workflows",
+      "metrics": [
+        "3 weeks average compression (vs. 8 weeks industry average)",
+        "85% reduction in manual cycle steps",
+        "40% faster rep compensation clarity"
+      ]
+    },
+    {
+      "id": "ManualWork",
+      "name": "Manual Process Gap",
+      "description": "Too much manual work is slowing your team down",
+      "impact": "Finance team spends 60% of time on data entry and reconciliation instead of strategy.",
+      "solution": "Automate manual processes with data integration and validation rules",
+      "metrics": [
+        "95% of manual tasks eliminated",
+        "30 hours/month saved per FTE",
+        "$1M+ annual labor savings"
+      ]
+    },
+    {
+      "id": "Visibility",
+      "name": "Visibility & Forecasting Gap",
+      "description": "You lack real-time visibility into compensation impact",
+      "impact": "Business changes take weeks to model. You can't quickly answer what-if questions.",
+      "solution": "Real-time dashboards and forecasting models for instant business scenario modeling",
+      "metrics": [
+        "Real-time comp impact modeling",
+        "What-if scenarios run in minutes vs. days",
+        "Strategic agility increase of 300%"
+      ]
+    },
+    {
+      "id": "DataQuality",
+      "name": "Data Quality Gap",
+      "description": "Data silos and quality issues are limiting optimization",
+      "impact": "Territory, quota, and performance data are fragmented. Decisions based on incomplete info.",
+      "solution": "Unified data layer integrating territories, quotas, performance, and comp",
+      "metrics": [
+        "Single source of truth for all SPM data",
+        "99% data accuracy and completeness",
+        "Integration across 3+ systems"
+      ]
+    }
+  ]
+}
