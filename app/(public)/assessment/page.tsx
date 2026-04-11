@@ -7,10 +7,17 @@ import AssessmentForm from '@/components/AssessmentForm'
 
 interface Question {
   id: string
-  type: string
+  type: 'range' | 'percentage' | 'scale' | 'checkbox'
   question: string
   description?: string
-  [key: string]: any
+  min?: number
+  max?: number
+  minLabel?: string
+  maxLabel?: string
+  defaultValue?: number
+  step?: number
+  scale?: Array<{ value: number; label: string }>
+  options?: Array<{ value: string; label: string; gapType: string }>
 }
 
 export default function AssessmentPage() {
