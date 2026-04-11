@@ -29,6 +29,8 @@ export default function AssessmentForm({ questions }: AssessmentFormProps) {
   const [responses, setResponses] = useState<Partial<AssessmentResponse>>({})
   const [loading, setLoading] = useState(false)
   const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [showContactInfo, setShowContactInfo] = useState(false)
+  const [contactInfo, setContactInfo] = useState({ name: '', email: '', company: '' })
 
   const handleRangeChange = (id: string, value: number) => {
     setResponses({ ...responses, [id]: value })
@@ -50,7 +52,7 @@ export default function AssessmentForm({ questions }: AssessmentFormProps) {
     setResponses({ ...responses, painPoints: updated })
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
@@ -58,17 +60,29 @@ export default function AssessmentForm({ questions }: AssessmentFormProps) {
       const response = await fetch('/api/assessment/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(responses),
+        body: JSON.stringify({
+          ...responses,
+          name: contactInfo.name,
+          email: contactInfo.email,
+          company: contactInfo.company,
+        }),
       })
 
       if (response.ok) {
         const data = await response.json()
-        router.push(`/assessment/results?gap=${data.gapType}&score=${data.score}`)
+        router.push(
+          `/assessment/results?gap=${data.analysis.gapType}&score=${data.analysis.score}&email=${contactInfo.email}`
+        )
       }
     } catch (error) {
       console.error('Assessment submission error:', error)
       setLoading(false)
     }
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setShowContactInfo(true)
   }
 
   const question = questions[currentQuestion]
@@ -185,43 +199,86 @@ export default function AssessmentForm({ questions }: AssessmentFormProps) {
       )}
 
       {/* Navigation */}
-      <div className="flex gap-4 mt-12">
-        <button
-          type="button"
-          onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
-          disabled={currentQuestion === 0}
-          className="px-6 py-3 border border-white/20 rounded-lg text-white hover:border-white/50 transition disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          Back
-        </button>
-
-        {currentQuestion < questions.length - 1 ? (
+      {!showContactInfo ? (
+        <div className="flex gap-4 mt-12">
           <button
             type="button"
-            onClick={() => setCurrentQuestion(currentQuestion + 1)}
-            className="ml-auto px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg transition flex items-center gap-2"
+            onClick={() => setCurrentQuestion(Math.max(0, currentQuestion - 1))}
+            disabled={currentQuestion === 0}
+            className="px-6 py-3 border border-white/20 rounded-lg text-white hover:border-white/50 transition disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Next <ArrowRight className="w-4 h-4" />
+            Back
           </button>
-        ) : (
-          <button
-            type="submit"
-            disabled={loading}
-            className="ml-auto px-8 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg transition flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                Analyzing...
-              </>
-            ) : (
-              <>
-                See Results <ArrowRight className="w-4 h-4" />
-              </>
-            )}
-          </button>
-        )}
-      </div>
+
+          {currentQuestion < questions.length - 1 ? (
+            <button
+              type="button"
+              onClick={() => setCurrentQuestion(currentQuestion + 1)}
+              className="ml-auto px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg transition flex items-center gap-2"
+            >
+              Next <ArrowRight className="w-4 h-4" />
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="ml-auto px-8 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg transition flex items-center gap-2"
+            >
+              Continue <ArrowRight className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+      ) : (
+        <div className="mt-12 space-y-4">
+          <input
+            type="text"
+            placeholder="Your Name"
+            value={contactInfo.name}
+            onChange={(e) => setContactInfo({ ...contactInfo, name: e.target.value })}
+            className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-white/50"
+          />
+          <input
+            type="email"
+            placeholder="Work Email"
+            value={contactInfo.email}
+            onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
+            className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-white/50"
+          />
+          <input
+            type="text"
+            placeholder="Company"
+            value={contactInfo.company}
+            onChange={(e) => setContactInfo({ ...contactInfo, company: e.target.value })}
+            className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-white/50"
+          />
+
+          <div className="flex gap-4 pt-4">
+            <button
+              type="button"
+              onClick={() => setShowContactInfo(false)}
+              className="px-6 py-3 border border-white/20 rounded-lg text-white hover:border-white/50 transition"
+            >
+              Back
+            </button>
+            <button
+              type="button"
+              onClick={handleContactSubmit}
+              disabled={loading || !contactInfo.email}
+              className="ml-auto px-8 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg transition flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  Submitting...
+                </>
+              ) : (
+                <>
+                  See Results <ArrowRight className="w-4 h-4" />
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      )}
     </form>
   )
 }
