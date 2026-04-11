@@ -25,6 +25,7 @@ interface Content {
   services: { heading: string; subheading: string }
   whyBhg: { heading: string; subheading: string; reasons: string[] }
   cta: { heading: string; subheading: string; ctaText: string }
+  vendors: { heading: string; logos: string[] }
 }
 
 export default function HomePage() {
@@ -63,7 +64,7 @@ export default function HomePage() {
 
   if (!content) return null
 
-  const { hero, stats, valueProp, pillars, services, whyBhg, cta } = content
+  const { hero, stats, valueProp, pillars, services, whyBhg, cta, vendors } = content
 
   // Split heading safely
   const headingParts = hero.mainHeading.includes(hero.highlightText)
@@ -100,7 +101,7 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-in-up stagger-3">
-            <Link href="#contact" className="btn-primary">
+            <Link href="/assessment" className="btn-primary">
               {hero.ctaText} <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
             <button className="px-8 py-4 border-2 border-white/20 rounded-lg hover:border-white/50 transition backdrop-blur">
@@ -122,6 +123,22 @@ export default function HomePage() {
           <div className="flex flex-col items-center gap-2 text-white/50">
             <span className="text-sm">Scroll to explore</span>
             <div className="w-1 h-8 border-l border-white/20 animate-pulse" />
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 1.5: VENDOR LOGOS */}
+      <section className="relative py-16 bg-gradient-to-b from-black via-black/50 to-transparent">
+        <div className="section-container relative z-10">
+          <div className="text-center scroll-reveal mb-12">
+            <h3 className="text-sm font-semibold text-white/60 uppercase tracking-widest">{vendors.heading}</h3>
+          </div>
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+            {vendors.logos.map((logo, idx) => (
+              <div key={idx} className="scroll-reveal" style={{ animationDelay: `${idx * 0.05}s` }}>
+                <p className="text-white/70 font-semibold text-lg">{logo}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

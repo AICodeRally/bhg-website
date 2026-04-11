@@ -1,34 +1,34 @@
 {
   "hero": {
-    "badge": "Modern SPM Intelligence",
-    "mainHeading": "The SPM Specialist Firm",
-    "highlightText": "SPM Specialist",
-    "subheading": "Built for Business Reinvention, Not Just Software Configuration",
-    "description": "SPM implementations fail when treated as software projects. We scope what others miss, integrate what others break, and stay with you long after go-live.",
-    "ctaText": "Talk to a Specialist",
-    "secondaryCtaText": "See How We Work"
+    "badge": "Ecosystem Optimization",
+    "mainHeading": "Unlock the full potential of your ICM platform",
+    "highlightText": "full potential",
+    "subheading": "Whether you use Anaplan, Incent, Varicent, or others — we optimize what you've already built.",
+    "description": "We don't replace your ICM. We complete it. By layering strategic optimization and proven methodologies on top of your existing platform, we unlock the revenue impact you invested in.",
+    "ctaText": "Take the Assessment",
+    "secondaryCtaText": "See How It Works"
   },
   "stats": [
-    { "number": "300+", "label": "ICM Implementations" },
-    { "number": "200+", "label": "Years Combined Expertise" },
-    { "number": "8/8", "label": "Implementation Elements" }
+    { "number": "8→3 weeks", "label": "Avg Cycle Compression" },
+    { "number": "$2M+", "label": "Annual Client Savings" },
+    { "number": "5+ ICMs", "label": "Vendor-Agnostic" }
   ],
   "valueProp": {
-    "heading": "Why Your SPM Needs a Specialist",
-    "subheading": "Every company thinks their business is unique. It is. But 90% of SPM implementations fail because teams focus on the software instead of the transformation.",
+    "heading": "Optimize What You've Built",
+    "subheading": "Your ICM platform is an investment. We help you get the full value from it. No rip-and-replace. Just strategic optimization layered on top of what you already own.",
     "benefits": [
-      "End-to-end ownership from RFP to revenue impact",
-      "Cross-functional process redesign",
-      "Change management excellence",
-      "Ongoing optimization and support"
+      "Works alongside Anaplan, Incent, Varicent, and more",
+      "No vendor lock-in concerns",
+      "Completes your existing platform",
+      "Proven methodologies for rapid ROI"
     ],
     "capabilities": [
-      "Process Design",
-      "Data Strategy",
-      "Team Training",
-      "Governance Framework",
-      "Security & Compliance",
-      "Performance Analytics"
+      "Compression Cycle Design",
+      "Territory Optimization",
+      "Compensation Analytics",
+      "Data Integration",
+      "Revenue Alignment",
+      "Change Management"
     ]
   },
   "pillars": {
@@ -41,12 +41,12 @@
   },
   "whyBhg": {
     "heading": "Why Choose BHG?",
-    "subheading": "What sets us apart from every other SPM firm",
+    "subheading": "We work alongside your existing platform, not against it.",
     "reasons": [
-      "Deep SPM domain expertise",
-      "Vendor-agnostic approach",
-      "Change management focus",
-      "Post-implementation support"
+      "Vendor-agnostic optimization expertise",
+      "No platform replacement needed",
+      "Proven ROI acceleration methodology",
+      "Ongoing strategic partnership"
     ]
   },
   "testimonials": {
@@ -54,8 +54,18 @@
     "subheading": "See what our clients say about working with BHG"
   },
   "cta": {
-    "heading": "Ready to Transform Your SPM?",
-    "subheading": "Let's talk about your SPM journey. Our specialists are ready to help.",
-    "ctaText": "Schedule a Consultation"
+    "heading": "Find Your ICM Optimization Gap",
+    "subheading": "Take our 5-minute assessment to identify how we can accelerate your platform ROI.",
+    "ctaText": "Take the Assessment"
+  },
+  "vendors": {
+    "heading": "Trusted by Enterprises Using",
+    "logos": [
+      "Anaplan",
+      "Incent",
+      "Varicent",
+      "NetSuite",
+      "Salesforce"
+    ]
   }
 }
