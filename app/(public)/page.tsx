@@ -65,6 +65,11 @@ export default function HomePage() {
 
   const { hero, stats, valueProp, pillars, services, whyBhg, cta } = content
 
+  // Split heading safely
+  const headingParts = hero.mainHeading.includes(hero.highlightText)
+    ? hero.mainHeading.split(hero.highlightText)
+    : [hero.mainHeading, '', '']
+
   return (
     <div className="relative">
       {/* SECTION 1: HERO */}
@@ -81,9 +86,9 @@ export default function HomePage() {
           </div>
 
           <h1 className="text-7xl md:text-8xl font-bold mb-6 animate-fade-in-up leading-tight">
-            {hero.mainHeading.split(hero.highlightText)[0]}
+            {headingParts[0]}
             <span className="gradient-text">{hero.highlightText}</span>
-            {hero.mainHeading.split(hero.highlightText)[1]}
+            {headingParts[1]}
           </h1>
           
           <p className="text-xl md:text-2xl text-white/60 mb-4 max-w-3xl mx-auto animate-fade-in-up stagger-1">
@@ -129,7 +134,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="scroll-reveal">
               <h2 className="text-5xl md:text-6xl font-bold mb-6">
-                {valueProp.heading.split('SPM')[0]}<span className="gradient-text">SPM</span>{valueProp.heading.split('SPM')[1]}
+                {valueProp.heading}
               </h2>
               <p className="text-lg text-white/60 mb-6 leading-relaxed">
                 {valueProp.subheading}
