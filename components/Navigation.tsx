@@ -33,6 +33,7 @@ export default function Navigation() {
             <Link href="/solutions" className="text-white/70 hover:text-white transition font-medium">Solutions</Link>
             <Link href="/our-approach" className="text-white/70 hover:text-white transition font-medium">Approach</Link>
             <Link href="/insights" className="text-white/70 hover:text-white transition font-medium">Insights</Link>
+            <Link href="/style-guide" className="text-white/70 hover:text-white/90 transition font-medium text-sm">Design</Link>
             <Link href="/contact" className="btn-primary text-sm py-2 px-6">
               <Sparkles className="w-4 h-4" />
               Contact
@@ -55,6 +56,7 @@ export default function Navigation() {
             <Link href="/solutions" className="block px-4 py-2 text-white/70 hover:text-white">Solutions</Link>
             <Link href="/our-approach" className="block px-4 py-2 text-white/70 hover:text-white">Approach</Link>
             <Link href="/insights" className="block px-4 py-2 text-white/70 hover:text-white">Insights</Link>
+            <Link href="/style-guide" className="block px-4 py-2 text-white/70 hover:text-white">Design System</Link>
             <Link href="/contact" className="btn-primary block text-center mx-4">Contact</Link>
           </div>
         )}
