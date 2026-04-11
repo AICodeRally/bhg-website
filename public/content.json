@@ -1,0 +1,61 @@
+{
+  "hero": {
+    "badge": "Modern SPM Intelligence",
+    "mainHeading": "The SPM Specialist Firm",
+    "highlightText": "SPM Specialist",
+    "subheading": "Built for Business Reinvention, Not Just Software Configuration",
+    "description": "SPM implementations fail when treated as software projects. We scope what others miss, integrate what others break, and stay with you long after go-live.",
+    "ctaText": "Talk to a Specialist",
+    "secondaryCtaText": "See How We Work"
+  },
+  "stats": [
+    { "number": "300+", "label": "ICM Implementations" },
+    { "number": "200+", "label": "Years Combined Expertise" },
+    { "number": "8/8", "label": "Implementation Elements" }
+  ],
+  "valueProp": {
+    "heading": "Why Your SPM Needs a Specialist",
+    "subheading": "Every company thinks their business is unique. It is. But 90% of SPM implementations fail because teams focus on the software instead of the transformation.",
+    "benefits": [
+      "End-to-end ownership from RFP to revenue impact",
+      "Cross-functional process redesign",
+      "Change management excellence",
+      "Ongoing optimization and support"
+    ],
+    "capabilities": [
+      "Process Design",
+      "Data Strategy",
+      "Team Training",
+      "Governance Framework",
+      "Security & Compliance",
+      "Performance Analytics"
+    ]
+  },
+  "pillars": {
+    "heading": "The SPM Foundation",
+    "subheading": "Three pillars that every successful SPM implementation must address"
+  },
+  "services": {
+    "heading": "Our Services",
+    "subheading": "End-to-end support at every stage of your SPM journey"
+  },
+  "whyBhg": {
+    "heading": "Why Choose BHG?",
+    "subheading": "What sets us apart from every other SPM firm",
+    "reasons": [
+      "Deep SPM domain expertise",
+      "Vendor-agnostic approach",
+      "Change management focus",
+      "Post-implementation support"
+    ]
+  },
+  "testimonials": {
+    "heading": "Client Success Stories",
+    "subheading": "See what our clients say about working with BHG"
+  },
+  "cta": {
+    "heading": "Ready to Transform Your SPM?",
+    "subheading": "Let's talk about your SPM journey. Our specialists are ready to help.",
+    "ctaText": "Schedule a Consultation"
+  }
+}
