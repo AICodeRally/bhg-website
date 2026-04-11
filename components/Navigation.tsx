@@ -31,9 +31,9 @@ export default function Navigation() {
           <div className="hidden md:flex items-center gap-12">
             <Link href="/why-bhg" className="text-white/70 hover:text-white transition font-medium">Why BHG</Link>
             <Link href="/solutions" className="text-white/70 hover:text-white transition font-medium">Solutions</Link>
-            <Link href="/our-approach" className="text-white/70 hover:text-white transition font-medium">Approach</Link>
-            <Link href="/insights" className="text-white/70 hover:text-white transition font-medium">Insights</Link>
+            <Link href="/case-studies" className="text-white/70 hover:text-white transition font-medium">Case Studies</Link>
             <Link href="/assessment" className="text-white/70 hover:text-white transition font-medium">Assessment</Link>
+            <Link href="/insights" className="text-white/70 hover:text-white transition font-medium">Insights</Link>
             <Link href="/style-guide" className="text-white/70 hover:text-white/90 transition font-medium text-sm">Design</Link>
             <Link href="/contact" className="btn-primary text-sm py-2 px-6">
               <Sparkles className="w-4 h-4" />
@@ -55,9 +55,9 @@ export default function Navigation() {
           <div className="md:hidden bg-black/95 backdrop-blur border-t border-white/10 py-4 space-y-3">
             <Link href="/why-bhg" className="block px-4 py-2 text-white/70 hover:text-white">Why BHG</Link>
             <Link href="/solutions" className="block px-4 py-2 text-white/70 hover:text-white">Solutions</Link>
-            <Link href="/our-approach" className="block px-4 py-2 text-white/70 hover:text-white">Approach</Link>
-            <Link href="/insights" className="block px-4 py-2 text-white/70 hover:text-white">Insights</Link>
+            <Link href="/case-studies" className="block px-4 py-2 text-white/70 hover:text-white">Case Studies</Link>
             <Link href="/assessment" className="block px-4 py-2 text-white/70 hover:text-white">Assessment</Link>
+            <Link href="/insights" className="block px-4 py-2 text-white/70 hover:text-white">Insights</Link>
             <Link href="/style-guide" className="block px-4 py-2 text-white/70 hover:text-white">Design System</Link>
             <Link href="/contact" className="btn-primary block text-center mx-4">Contact</Link>
           </div>

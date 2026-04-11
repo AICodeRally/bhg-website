@@ -1,0 +1,197 @@
+[
+  {
+    "id": "anaplan-fortune500",
+    "title": "How We Optimized Anaplan for a Fortune 500 Tech Company",
+    "slug": "anaplan-fortune500",
+    "platform": "Anaplan",
+    "industry": "Technology",
+    "companySize": "10,000+ employees",
+    "heroImage": "/case-studies/anaplan-tech.jpg",
+    "excerpt": "Reduced compression cycles from 8 weeks to 3 weeks while integrating legacy territory systems.",
+    "challenge": {
+      "title": "The Challenge",
+      "description": "A Fortune 500 technology company had implemented Anaplan 18 months earlier, but their compression cycles were still taking 8 weeks. Sales teams waited weeks for comp clarity, and the finance team was spending 60% of their time on manual reconciliation across Anaplan and three legacy systems. Despite having the right platform, they weren't getting the ROI they needed.",
+      "bullets": [
+        "8-week compression cycles (vs. 3-week industry target)",
+        "40+ manual Excel reconciliations per cycle",
+        "Territory system not integrated with Anaplan",
+        "Sales ops team frustrated with lack of visibility"
+      ]
+    },
+    "solution": {
+      "title": "Our Approach",
+      "description": "We didn't replace Anaplan. We completed it. We designed a data integration layer that automated the manual processes, streamlined the comp calculation workflow, and connected territories directly into Anaplan's calculations.",
+      "approach": [
+        "Automated territory-to-quota sync from legacy system",
+        "Rebuilt comp calculation logic to eliminate manual steps",
+        "Created real-time dashboards for what-if modeling",
+        "Implemented validation rules to catch data errors before processing"
+      ]
+    },
+    "results": [
+      {
+        "metric": "Compression Time",
+        "before": "8 weeks",
+        "after": "3 weeks",
+        "impact": "62% faster cycle time"
+      },
+      {
+        "metric": "Manual Work",
+        "before": "40+ reconciliations",
+        "after": "2 automated validations",
+        "impact": "95% reduction in manual effort"
+      },
+      {
+        "metric": "Finance Team Productivity",
+        "before": "60% on manual work",
+        "after": "20% on admin, 80% on strategy",
+        "impact": "Strategic capacity increase"
+      }
+    ],
+    "roi": {
+      "annualSavings": "$2.4M",
+      "savingsBreakdown": "$1.8M labor, $600K faster close",
+      "paybackPeriod": "6 months"
+    },
+    "testimonial": {
+      "quote": "BHG didn't replace our Anaplan investment. They unlocked it. We went from drowning in spreadsheets to having real-time visibility into compensation impact. This is what we bought Anaplan for in the first place.",
+      "author": "VP of Finance Operations",
+      "company": "Fortune 500 Tech Company"
+    },
+    "nextSteps": [
+      "We continue to optimize their quarterly planning process",
+      "Recently implemented territory-based quota modeling",
+      "Working on rep-level forecasting dashboards"
+    ]
+  },
+  {
+    "id": "varicent-midmarket",
+    "title": "Varicent Optimization for a $2B Mid-Market Distributor",
+    "slug": "varicent-midmarket",
+    "platform": "Varicent",
+    "industry": "Distribution",
+    "companySize": "3,000+ employees",
+    "heroImage": "/case-studies/varicent-distribution.jpg",
+    "excerpt": "Unified territories across 5 regions and reduced manual compensation cycles by 85%.",
+    "challenge": {
+      "title": "The Challenge",
+      "description": "A mid-market beverage distributor had Varicent in place but was using it like a reporting tool, not an optimization engine. Territories were managed across regional spreadsheets with no consistency. Their sales comp cycles were unpredictable—sometimes 4 weeks, sometimes 8—because data quality issues required manual intervention at each stage.",
+      "bullets": [
+        "5 regional variations of territory management",
+        "Data quality issues in 30% of comp runs",
+        "No standardized comp methodology across regions",
+        "Sales reps didn't trust comp calculations"
+      ]
+    },
+    "solution": {
+      "title": "Our Approach",
+      "description": "We established a single source of truth for territories and comp calculations across all regions. We implemented Varicent as intended—as a strategic planning tool, not just a reporting system.",
+      "approach": [
+        "Unified territory definitions across 5 regions",
+        "Built data validation rules into Varicent workflows",
+        "Trained regional teams on standardized comp methodology",
+        "Created region-specific dashboards for comp visibility"
+      ]
+    },
+    "results": [
+      {
+        "metric": "Territory Standardization",
+        "before": "5 different regional systems",
+        "after": "1 unified territory model",
+        "impact": "Cross-regional transparency"
+      },
+      {
+        "metric": "Cycle Predictability",
+        "before": "4-8 weeks, high variance",
+        "after": "Consistent 4-week cycles",
+        "impact": "Sales teams can plan accurately"
+      },
+      {
+        "metric": "Data Quality",
+        "before": "30% failure rate",
+        "after": "99% first-pass success",
+        "impact": "Automated validations caught errors early"
+      }
+    ],
+    "roi": {
+      "annualSavings": "$1.2M",
+      "savingsBreakdown": "$800K labor, $400K faster decision-making",
+      "paybackPeriod": "4 months"
+    },
+    "testimonial": {
+      "quote": "Our regional teams finally trust the comp numbers coming out of Varicent. BHG didn't build us something new—they taught us how to use what we had invested in. That's worth a lot to us.",
+      "author": "Chief Revenue Officer",
+      "company": "Mid-Market Distributor"
+    },
+    "nextSteps": [
+      "Implementing incentive modeling for new product launches",
+      "Building predictive ramp curves for new hire comp",
+      "Developing territory performance analytics"
+    ]
+  },
+  {
+    "id": "netsuite-enterprise",
+    "title": "NetSuite SPM Optimization for a Global Enterprise",
+    "slug": "netsuite-enterprise",
+    "platform": "NetSuite",
+    "industry": "Enterprise Software",
+    "companySize": "15,000+ employees",
+    "heroImage": "/case-studies/netsuite-enterprise.jpg",
+    "excerpt": "Integrated NetSuite SPM across 12 countries with 40+ comp plans and real-time forecasting.",
+    "challenge": {
+      "title": "The Challenge",
+      "description": "An enterprise software company had NetSuite SPM deployed globally but was struggling with complexity. 40 different compensation plans, 12 countries with different tax/regulatory requirements, and no unified way to forecast impact of changes. The comp team had grown to 8 people just to manage the processes, and cycle times were unpredictable.",
+      "bullets": [
+        "40+ compensation plan variations",
+        "12 countries, different regulatory requirements",
+        "Manual reviews at each approval stage",
+        "8-person comp team managing a manual process"
+      ]
+    },
+    "solution": {
+      "title": "Our Approach",
+      "description": "We built a governance layer on top of NetSuite that automated approvals, created regional templates that scaled globally, and implemented real-time forecasting for what-if analysis.",
+      "approach": [
+        "Created regional comp templates with country-specific rules",
+        "Built automated approval workflows based on business rules",
+        "Implemented real-time what-if forecasting engine",
+        "Designed training program to enable comp team to own the system"
+      ]
+    },
+    "results": [
+      {
+        "metric": "Cycle Time",
+        "before": "6-10 weeks (inconsistent)",
+        "after": "Consistent 3-4 weeks",
+        "impact": "Improved predictability"
+      },
+      {
+        "metric": "Comp Team Headcount",
+        "before": "8 people (mostly manual)",
+        "after": "3 people (strategy-focused)",
+        "impact": "$500K annual labor savings"
+      },
+      {
+        "metric": "Plan Flexibility",
+        "before": "Can't model changes quickly",
+        "after": "What-if modeling in minutes",
+        "impact": "Business agility"
+      }
+    ],
+    "roi": {
+      "annualSavings": "$3.2M",
+      "savingsBreakdown": "$2.5M labor reduction, $700K faster decisions",
+      "paybackPeriod": "5 months"
+    },
+    "testimonial": {
+      "quote": "We thought we needed to replace NetSuite. What we really needed was to unlock it. BHG showed us that the right process design and automation can make a global SPM program manageable and strategic.",
+      "author": "Chief Financial Officer",
+      "company": "Global Enterprise Software"
+    },
+    "nextSteps": [
+      "Expanding forecasting to include revenue impact models",
+      "Building self-service dashboards for regional teams",
+      "Implementing predictive attrition modeling"
+    ]
+  }
+]
