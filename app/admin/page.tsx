@@ -55,7 +55,7 @@ interface Content {
   trustedCompanies: string[]
 }
 
-type TabName = 'header' | 'footer' | 'hero' | 'stats' | 'vendors' | 'services' | 'pillars' | 'testimonials' | 'cta' | 'blog' | 'case-studies'
+type TabName = 'header' | 'footer' | 'hero' | 'stats' | 'valueProp' | 'vendors' | 'services' | 'pillars' | 'whyBhg' | 'testimonials' | 'cta' | 'blog' | 'case-studies'
 
 interface BlogPost {
   id: string
@@ -185,9 +185,11 @@ export default function AdminDashboard() {
     { id: 'footer', label: 'Footer' },
     { id: 'hero', label: 'Hero' },
     { id: 'stats', label: 'Stats' },
+    { id: 'valueProp', label: 'Value Prop' },
     { id: 'vendors', label: 'Vendors' },
     { id: 'services', label: 'Services' },
     { id: 'pillars', label: 'Pillars' },
+    { id: 'whyBhg', label: 'Why BHG' },
     { id: 'testimonials', label: 'Testimonials' },
     { id: 'cta', label: 'CTA' },
     { id: 'blog', label: 'Blog' },
@@ -535,6 +537,63 @@ export default function AdminDashboard() {
             </div>
           )}
 
+          {/* Value Prop Tab */}
+          {activeTab === 'valueProp' && content && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Value Proposition</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Heading</label>
+                  <input type="text" value={content.valueProp.heading}
+                    onChange={(e) => setContent({ ...content, valueProp: { ...content.valueProp, heading: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40" />
+                </div>
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Subheading</label>
+                  <textarea value={content.valueProp.subheading} rows={3}
+                    onChange={(e) => setContent({ ...content, valueProp: { ...content.valueProp, subheading: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40" />
+                </div>
+                <div>
+                  <div className="flex justify-between items-center mb-2">
+                    <label className="block text-white/80 text-sm font-medium">Benefits</label>
+                    <button onClick={() => setContent({ ...content, valueProp: { ...content.valueProp, benefits: [...content.valueProp.benefits, ''] } })}
+                      className="flex items-center gap-1 px-3 py-1 bg-white/10 hover:bg-white/20 rounded text-white text-sm transition">
+                      <Plus className="w-3 h-3" /> Add
+                    </button>
+                  </div>
+                  {content.valueProp.benefits.map((item, idx) => (
+                    <div key={idx} className="flex gap-2 mb-2">
+                      <input type="text" value={item}
+                        onChange={(e) => { const b = [...content.valueProp.benefits]; b[idx] = e.target.value; setContent({ ...content, valueProp: { ...content.valueProp, benefits: b } }) }}
+                        className="flex-1 px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40" />
+                      <button onClick={() => setContent({ ...content, valueProp: { ...content.valueProp, benefits: content.valueProp.benefits.filter((_, i) => i !== idx) } })}
+                        className="text-red-400 hover:text-red-300"><Trash2 className="w-4 h-4" /></button>
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <div className="flex justify-between items-center mb-2">
+                    <label className="block text-white/80 text-sm font-medium">Capabilities Grid</label>
+                    <button onClick={() => setContent({ ...content, valueProp: { ...content.valueProp, capabilities: [...content.valueProp.capabilities, ''] } })}
+                      className="flex items-center gap-1 px-3 py-1 bg-white/10 hover:bg-white/20 rounded text-white text-sm transition">
+                      <Plus className="w-3 h-3" /> Add
+                    </button>
+                  </div>
+                  {content.valueProp.capabilities.map((item, idx) => (
+                    <div key={idx} className="flex gap-2 mb-2">
+                      <input type="text" value={item}
+                        onChange={(e) => { const c = [...content.valueProp.capabilities]; c[idx] = e.target.value; setContent({ ...content, valueProp: { ...content.valueProp, capabilities: c } }) }}
+                        className="flex-1 px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40" />
+                      <button onClick={() => setContent({ ...content, valueProp: { ...content.valueProp, capabilities: content.valueProp.capabilities.filter((_, i) => i !== idx) } })}
+                        className="text-red-400 hover:text-red-300"><Trash2 className="w-4 h-4" /></button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Vendors Tab */}
           {activeTab === 'vendors' && (
             <div className="space-y-6">
@@ -719,6 +778,45 @@ export default function AdminDashboard() {
                     />
                   </div>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {/* Why BHG Tab */}
+          {activeTab === 'whyBhg' && content && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Why BHG Section</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Heading</label>
+                  <input type="text" value={content.whyBhg.heading}
+                    onChange={(e) => setContent({ ...content, whyBhg: { ...content.whyBhg, heading: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40" />
+                </div>
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Subheading</label>
+                  <input type="text" value={content.whyBhg.subheading}
+                    onChange={(e) => setContent({ ...content, whyBhg: { ...content.whyBhg, subheading: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40" />
+                </div>
+                <div>
+                  <div className="flex justify-between items-center mb-2">
+                    <label className="block text-white/80 text-sm font-medium">Reasons</label>
+                    <button onClick={() => setContent({ ...content, whyBhg: { ...content.whyBhg, reasons: [...content.whyBhg.reasons, ''] } })}
+                      className="flex items-center gap-1 px-3 py-1 bg-white/10 hover:bg-white/20 rounded text-white text-sm transition">
+                      <Plus className="w-3 h-3" /> Add
+                    </button>
+                  </div>
+                  {content.whyBhg.reasons.map((reason, idx) => (
+                    <div key={idx} className="flex gap-2 mb-2">
+                      <input type="text" value={reason}
+                        onChange={(e) => { const r = [...content.whyBhg.reasons]; r[idx] = e.target.value; setContent({ ...content, whyBhg: { ...content.whyBhg, reasons: r } }) }}
+                        className="flex-1 px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40" />
+                      <button onClick={() => setContent({ ...content, whyBhg: { ...content.whyBhg, reasons: content.whyBhg.reasons.filter((_, i) => i !== idx) } })}
+                        className="text-red-400 hover:text-red-300"><Trash2 className="w-4 h-4" /></button>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}

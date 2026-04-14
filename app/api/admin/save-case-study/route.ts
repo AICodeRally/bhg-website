@@ -117,7 +117,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { action, study } = await request.json()
+    const body = await request.json()
+
+    // Handle bulk replace (sent from admin dashboard)
+    if (Array.isArray(body)) {
+      const sha = await saveCaseStudies(body, `chore(case-studies): update case studies via admin dashboard`)
+      return NextResponse.json({ success: true, commit: sha })
+    }
+
+    // Handle individual add/update/delete
+    const { action, study } = body
     let studies = await getCaseStudies()
 
     if (action === 'add') {

@@ -93,7 +93,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const { action, post } = await request.json()
+    const body = await request.json()
+
+    // Handle bulk replace (sent from admin dashboard)
+    if (Array.isArray(body)) {
+      const sha = await saveBlogPosts(body, `chore(blog): update blog posts via admin dashboard`)
+      return NextResponse.json({ success: true, commit: sha })
+    }
+
+    // Handle individual add/update/delete
+    const { action, post } = body
     let posts = await getBlogPosts()
 
     if (action === 'add') {
