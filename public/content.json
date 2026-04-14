@@ -51,6 +51,61 @@
   },
   "testimonials": {
     "heading": "Client Success Stories",
+    "subheading": "See what our clients say about working with BHG",
+    "quotes": [
+      {
+        "quote": "BHG transformed our SPM implementation from a software project to a business transformation. The result: 40% increase in rep productivity.",
+        "author": "Vice President of Sales",
+        "company": "Fortune 500 Tech Company"
+      },
+      {
+        "quote": "We tried to build SPM in-house. After 18 months and $2M, we engaged BHG. They completed in 6 months and integrated with 3 legacy systems.",
+        "author": "Chief Revenue Officer",
+        "company": "Enterprise SaaS"
+      }
+    ]
+  },
+  "pillarCards": [
+    {
+      "title": "SPM Strategy",
+      "description": "Align comp, territory, and quota strategy with business objectives"
+    },
+    {
+      "title": "Implementation",
+      "description": "Scope, configure, and integrate your SPM system end-to-end"
+    },
+    {
+      "title": "Analytics",
+      "description": "Unlock revenue insights and continuous optimization"
+    }
+  ],
+  "serviceCards": [
+    {
+      "title": "Advisory",
+      "description": "Strategic consulting to define your SPM roadmap"
+    },
+    {
+      "title": "Implementation",
+      "description": "Full-cycle system design, configuration, and deployment"
+    },
+    {
+      "title": "Enablement",
+      "description": "Training and change management for your teams"
+    },
+    {
+      "title": "Managed Services",
+      "description": "Ongoing optimization and operational support"
+    }
+  ],
+  "trustedCompanies": [
+    "Verizon",
+    "Penske",
+    "LPL Financial",
+    "US Foods",
+    "Palo Alto Networks"
+  ],
+  "testimonialsOld": {
+    "heading": "Client Success Stories",
     "subheading": "See what our clients say about working with BHG"
   },
   "cta": {

@@ -22,10 +22,18 @@ interface Content {
     capabilities: string[]
   }
   pillars: { heading: string; subheading: string }
+  pillarCards: Array<{ title: string; description: string }>
   services: { heading: string; subheading: string }
+  serviceCards: Array<{ title: string; description: string }>
   whyBhg: { heading: string; subheading: string; reasons: string[] }
   cta: { heading: string; subheading: string; ctaText: string }
   vendors: { heading: string; logos: string[] }
+  testimonials: {
+    heading: string
+    subheading: string
+    quotes: Array<{ quote: string; author: string; company: string }>
+  }
+  trustedCompanies: string[]
 }
 
 export default function HomePage() {
@@ -64,7 +72,7 @@ export default function HomePage() {
 
   if (!content) return null
 
-  const { hero, stats, valueProp, pillars, services, whyBhg, cta, vendors } = content
+  const { hero, stats, valueProp, pillars, pillarCards, services, serviceCards, whyBhg, cta, vendors, testimonials, trustedCompanies } = content
 
   // Split heading safely
   const headingParts = hero.mainHeading.includes(hero.highlightText)
@@ -190,22 +198,22 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { title: 'SPM Strategy', description: 'Align comp, territory, and quota strategy with business objectives', icon: BarChart3 },
-              { title: 'Implementation', description: 'Scope, configure, and integrate your SPM system end-to-end', icon: Users },
-              { title: 'Analytics', description: 'Unlock revenue insights and continuous optimization', icon: TrendingUp },
-            ].map((pillar, idx) => (
+            {pillarCards.map((pillar, idx) => {
+              const icons = [BarChart3, Users, TrendingUp]
+              const Icon = icons[idx] || BarChart3
+              return (
               <div key={idx} className="scroll-reveal glass-card p-8 group" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <div className="absolute top-0 right-0 w-20 h-20 rounded-full blur-xl group-hover:scale-150 transition duration-500" style={{ backgroundColor: 'rgba(139, 21, 56, 0.1)' }} />
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-lg mb-4 flex items-center justify-center" style={{ backgroundColor: 'rgba(139, 21, 56, 0.2)' }}>
-                    <pillar.icon className="w-6 h-6" style={{ color: '#8B1538' }} />
+                    <Icon className="w-6 h-6" style={{ color: '#8B1538' }} />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-3">{pillar.title}</h3>
                   <p className="text-white/60">{pillar.description}</p>
                 </div>
               </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
@@ -221,20 +229,19 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-4 gap-6">
-            {[
-              { title: 'Advisory', description: 'Strategic consulting to define your SPM roadmap', icon: Zap },
-              { title: 'Implementation', description: 'Full-cycle system design, configuration, and deployment', icon: BarChart3 },
-              { title: 'Enablement', description: 'Training and change management for your teams', icon: Users },
-              { title: 'Managed Services', description: 'Ongoing optimization and operational support', icon: TrendingUp },
-            ].map((service, idx) => (
+            {serviceCards.map((service, idx) => {
+              const icons = [Zap, BarChart3, Users, TrendingUp]
+              const Icon = icons[idx] || Zap
+              return (
               <div key={idx} className="scroll-reveal glass-card p-6 group" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <div className="w-10 h-10 rounded-lg mb-4 flex items-center justify-center group-hover:scale-125 transition" style={{ backgroundColor: 'rgba(139, 21, 56, 0.2)' }}>
-                  <service.icon className="w-6 h-6" style={{ color: '#8B1538' }} />
+                  <Icon className="w-6 h-6" style={{ color: '#8B1538' }} />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">{service.title}</h3>
                 <p className="text-sm text-white/60">{service.description}</p>
               </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       </section>
@@ -262,7 +269,7 @@ export default function HomePage() {
         <div className="section-container relative z-10 text-center">
           <h2 className="text-4xl font-bold mb-12 scroll-reveal">Trusted by Industry Leaders</h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-center">
-            {['Verizon', 'Penske', 'LPL Financial', 'US Foods', 'Palo Alto Networks'].map((company, idx) => (
+            {trustedCompanies.map((company, idx) => (
               <div key={idx} className="scroll-reveal" style={{ animationDelay: `${idx * 0.1}s` }}>
                 <p className="text-white/50 font-semibold text-sm">{company}</p>
               </div>
@@ -275,23 +282,12 @@ export default function HomePage() {
       <section className="relative py-24">
         <div className="section-container relative z-10">
           <div className="text-center mb-16 scroll-reveal">
-            <h2 className="text-5xl md:text-6xl font-bold mb-4">Client Success Stories</h2>
-            <p className="text-lg text-white/60 max-w-2xl mx-auto">See what our clients say about working with BHG</p>
+            <h2 className="text-5xl md:text-6xl font-bold mb-4">{testimonials.heading}</h2>
+            <p className="text-lg text-white/60 max-w-2xl mx-auto">{testimonials.subheading}</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {[
-              {
-                quote: 'BHG transformed our SPM implementation from a software project to a business transformation. The result: 40% increase in rep productivity.',
-                author: 'Vice President of Sales',
-                company: 'Fortune 500 Tech Company',
-              },
-              {
-                quote: 'We tried to build SPM in-house. After 18 months and $2M, we engaged BHG. They completed in 6 months and integrated with 3 legacy systems.',
-                author: 'Chief Revenue Officer',
-                company: 'Enterprise SaaS',
-              },
-            ].map((testimonial, idx) => (
+            {testimonials.quotes.map((testimonial, idx) => (
               <div key={idx} className="scroll-reveal glass-card p-8 border-l-4" style={{ borderColor: '#8B1538', animationDelay: `${idx * 0.1}s` }}>
                 <p className="text-lg text-white/80 mb-6 italic">"{testimonial.quote}"</p>
                 <div>
