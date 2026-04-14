@@ -4,9 +4,30 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { Menu, X, Sparkles } from 'lucide-react'
 
+interface NavLink { label: string; href: string }
+interface HeaderContent { logo: string; tagline: string; navLinks: NavLink[] }
+
 export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [header, setHeader] = useState<HeaderContent>({
+    logo: 'BHG',
+    tagline: 'SPM Specialists',
+    navLinks: [
+      { label: 'Why BHG', href: '/why-bhg' },
+      { label: 'Solutions', href: '/solutions' },
+      { label: 'Case Studies', href: '/case-studies' },
+      { label: 'Blog', href: '/blog' },
+      { label: 'Contact', href: '/contact' },
+    ],
+  })
+
+  useEffect(() => {
+    fetch('/content.json')
+      .then(res => res.json())
+      .then(data => { if (data.header) setHeader(data.header) })
+      .catch(() => {})
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50)
@@ -22,20 +43,18 @@ export default function Navigation() {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="text-xl font-bold tracking-tighter">
-              <span className="gradient-text">BHG</span>
+              <span className="gradient-text">{header.logo}</span>
             </div>
-            <span className="text-sm text-white/60 group-hover:text-white/80 transition">SPM Specialists</span>
+            <span className="text-sm text-white/60 group-hover:text-white/80 transition">{header.tagline}</span>
           </Link>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center gap-12">
-            <Link href="/why-bhg" className="text-white/70 hover:text-white transition font-medium">Why BHG</Link>
-            <Link href="/solutions" className="text-white/70 hover:text-white transition font-medium">Solutions</Link>
-            <Link href="/case-studies" className="text-white/70 hover:text-white transition font-medium">Case Studies</Link>
-            <Link href="/blog" className="text-white/70 hover:text-white transition font-medium">Blog</Link>
-            <Link href="/roi-calculator" className="text-white/70 hover:text-white transition font-medium">ROI Calculator</Link>
-            <Link href="/assessment" className="text-white/70 hover:text-white transition font-medium">Assessment</Link>
-            <Link href="/style-guide" className="text-white/70 hover:text-white/90 transition font-medium text-sm">Design</Link>
+          <div className="hidden md:flex items-center gap-8">
+            {header.navLinks.map((link, idx) => (
+              <Link key={idx} href={link.href} className="text-white/70 hover:text-white transition font-medium">
+                {link.label}
+              </Link>
+            ))}
             <Link href="/contact" className="btn-primary text-sm py-2 px-6">
               <Sparkles className="w-4 h-4" />
               Contact
@@ -54,13 +73,11 @@ export default function Navigation() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden bg-black/95 backdrop-blur border-t border-white/10 py-4 space-y-3">
-            <Link href="/why-bhg" className="block px-4 py-2 text-white/70 hover:text-white">Why BHG</Link>
-            <Link href="/solutions" className="block px-4 py-2 text-white/70 hover:text-white">Solutions</Link>
-            <Link href="/case-studies" className="block px-4 py-2 text-white/70 hover:text-white">Case Studies</Link>
-            <Link href="/blog" className="block px-4 py-2 text-white/70 hover:text-white">Blog</Link>
-            <Link href="/roi-calculator" className="block px-4 py-2 text-white/70 hover:text-white">ROI Calculator</Link>
-            <Link href="/assessment" className="block px-4 py-2 text-white/70 hover:text-white">Assessment</Link>
-            <Link href="/style-guide" className="block px-4 py-2 text-white/70 hover:text-white">Design System</Link>
+            {header.navLinks.map((link, idx) => (
+              <Link key={idx} href={link.href} className="block px-4 py-2 text-white/70 hover:text-white">
+                {link.label}
+              </Link>
+            ))}
             <Link href="/contact" className="btn-primary block text-center mx-4">Contact</Link>
           </div>
         )}
