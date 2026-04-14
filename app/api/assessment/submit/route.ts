@@ -1,4 +1,5 @@
 import { analyzeGaps, AssessmentResponse } from '@/lib/assessment'
+import { appendLead } from '@/lib/appendLead'
 import { NextRequest, NextResponse } from 'next/server'
 
 export interface AssessmentSubmission extends AssessmentResponse {
@@ -15,12 +16,22 @@ export async function POST(request: NextRequest) {
     // Analyze responses to determine gap type
     const analysis = analyzeGaps(body)
 
+    // Capture the lead
+    const submittedAt = new Date().toISOString()
+    await appendLead({
+      id: Date.now().toString(),
+      source: 'assessment',
+      name: body.name || 'Anonymous',
+      email: body.email || '',
+      company: body.company || '',
+      gapType: analysis.dominantGap,
+      score: analysis.score,
+      cycleLength: body.cycleLength,
+      manualWork: body.manualWork,
+      submittedAt,
+    })
+
     // Return analysis + all captured data
-    // Your backend can hook into this endpoint to:
-    // - Save lead data to your database
-    // - Trigger email sequences
-    // - Tag leads in your CRM
-    // - Add to analytics pipeline
     const response = {
       success: true,
       submission: {
@@ -28,7 +39,7 @@ export async function POST(request: NextRequest) {
         company: body.company,
         name: body.name,
         responses: body,
-        submittedAt: new Date().toISOString(),
+        submittedAt,
       },
       analysis: {
         gapType: analysis.gapType,
