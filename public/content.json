@@ -1,4 +1,57 @@
 {
+  "header": {
+    "logo": "BHG",
+    "tagline": "SPM Specialists",
+    "navLinks": [
+      {
+        "label": "Why BHG",
+        "href": "/why-bhg"
+      },
+      {
+        "label": "Solutions",
+        "href": "/solutions"
+      },
+      {
+        "label": "Case Studies",
+        "href": "/case-studies"
+      },
+      {
+        "label": "Blog",
+        "href": "/blog"
+      },
+      {
+        "label": "ROI Calculator",
+        "href": "/roi-calculator"
+      },
+      {
+        "label": "Assessment",
+        "href": "/assessment"
+      }
+    ]
+  },
+  "footer": {
+    "company": "Blue Horizons Group",
+    "tagline": "SPM Specialists",
+    "links": [
+      {
+        "label": "About",
+        "href": "/why-bhg"
+      },
+      {
+        "label": "Services",
+        "href": "/solutions"
+      },
+      {
+        "label": "Blog",
+        "href": "/blog"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ],
+    "copyright": "© 2024 Blue Horizons Group. All rights reserved."
+  },
   "hero": {
     "badge": "Ecosystem Optimization",
     "mainHeading": "Unlock the full potential of your ICM platform",
@@ -9,9 +62,18 @@
     "secondaryCtaText": "See How It Works"
   },
   "stats": [
-    { "number": "8→3 weeks", "label": "Avg Cycle Compression" },
-    { "number": "$2M+", "label": "Annual Client Savings" },
-    { "number": "5+ ICMs", "label": "Vendor-Agnostic" }
+    {
+      "number": "8→3 weeks",
+      "label": "Avg Cycle Compression"
+    },
+    {
+      "number": "$2M+",
+      "label": "Annual Client Savings"
+    },
+    {
+      "number": "5+ ICMs",
+      "label": "Vendor-Agnostic"
+    }
   ],
   "valueProp": {
     "heading": "Optimize What You've Built",

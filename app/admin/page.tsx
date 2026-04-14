@@ -5,6 +5,17 @@ import { useRouter } from 'next/navigation'
 import { Save, LogOut, Plus, Trash2 } from 'lucide-react'
 
 interface Content {
+  header: {
+    logo: string
+    tagline: string
+    navLinks: Array<{ label: string; href: string }>
+  }
+  footer: {
+    company: string
+    tagline: string
+    links: Array<{ label: string; href: string }>
+    copyright: string
+  }
   hero: {
     badge: string
     mainHeading: string
@@ -44,7 +55,7 @@ interface Content {
   trustedCompanies: string[]
 }
 
-type TabName = 'hero' | 'stats' | 'vendors' | 'services' | 'pillars' | 'testimonials' | 'cta' | 'blog' | 'case-studies'
+type TabName = 'header' | 'footer' | 'hero' | 'stats' | 'vendors' | 'services' | 'pillars' | 'testimonials' | 'cta' | 'blog' | 'case-studies'
 
 interface BlogPost {
   id: string
@@ -170,6 +181,8 @@ export default function AdminDashboard() {
   }
 
   const tabs: Array<{ id: TabName; label: string }> = [
+    { id: 'header', label: 'Header' },
+    { id: 'footer', label: 'Footer' },
     { id: 'hero', label: 'Hero' },
     { id: 'stats', label: 'Stats' },
     { id: 'vendors', label: 'Vendors' },
@@ -225,6 +238,171 @@ export default function AdminDashboard() {
 
         {/* Tab Content */}
         <div className="glass-card p-8 mb-8">
+          {/* Header Tab */}
+          {activeTab === 'header' && content && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Header Navigation</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Logo Text</label>
+                  <input
+                    type="text"
+                    value={content.header.logo}
+                    onChange={(e) => setContent({ ...content, header: { ...content.header, logo: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Tagline</label>
+                  <input
+                    type="text"
+                    value={content.header.tagline}
+                    onChange={(e) => setContent({ ...content, header: { ...content.header, tagline: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  />
+                </div>
+                <div>
+                  <div className="flex justify-between items-center mb-4">
+                    <label className="block text-white/80 text-sm font-medium">Navigation Links</label>
+                    <button
+                      onClick={() => setContent({
+                        ...content,
+                        header: { ...content.header, navLinks: [...content.header.navLinks, { label: '', href: '' }] }
+                      })}
+                      className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition text-sm"
+                    >
+                      <Plus className="w-4 h-4" /> Add Link
+                    </button>
+                  </div>
+                  <div className="space-y-3">
+                    {content.header.navLinks.map((link, idx) => (
+                      <div key={idx} className="p-3 bg-white/5 rounded-lg border border-white/10 flex gap-2">
+                        <input
+                          type="text"
+                          placeholder="Label"
+                          value={link.label}
+                          onChange={(e) => {
+                            const newLinks = [...content.header.navLinks]
+                            newLinks[idx].label = e.target.value
+                            setContent({ ...content, header: { ...content.header, navLinks: newLinks } })
+                          }}
+                          className="flex-1 px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Href"
+                          value={link.href}
+                          onChange={(e) => {
+                            const newLinks = [...content.header.navLinks]
+                            newLinks[idx].href = e.target.value
+                            setContent({ ...content, header: { ...content.header, navLinks: newLinks } })
+                          }}
+                          className="flex-1 px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                        />
+                        <button
+                          onClick={() => setContent({
+                            ...content,
+                            header: { ...content.header, navLinks: content.header.navLinks.filter((_, i) => i !== idx) }
+                          })}
+                          className="text-red-400 hover:text-red-300 transition"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Footer Tab */}
+          {activeTab === 'footer' && content && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Footer</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Company Name</label>
+                  <input
+                    type="text"
+                    value={content.footer.company}
+                    onChange={(e) => setContent({ ...content, footer: { ...content.footer, company: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Tagline</label>
+                  <input
+                    type="text"
+                    value={content.footer.tagline}
+                    onChange={(e) => setContent({ ...content, footer: { ...content.footer, tagline: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  />
+                </div>
+                <div>
+                  <div className="flex justify-between items-center mb-4">
+                    <label className="block text-white/80 text-sm font-medium">Footer Links</label>
+                    <button
+                      onClick={() => setContent({
+                        ...content,
+                        footer: { ...content.footer, links: [...content.footer.links, { label: '', href: '' }] }
+                      })}
+                      className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition text-sm"
+                    >
+                      <Plus className="w-4 h-4" /> Add Link
+                    </button>
+                  </div>
+                  <div className="space-y-3">
+                    {content.footer.links.map((link, idx) => (
+                      <div key={idx} className="p-3 bg-white/5 rounded-lg border border-white/10 flex gap-2">
+                        <input
+                          type="text"
+                          placeholder="Label"
+                          value={link.label}
+                          onChange={(e) => {
+                            const newLinks = [...content.footer.links]
+                            newLinks[idx].label = e.target.value
+                            setContent({ ...content, footer: { ...content.footer, links: newLinks } })
+                          }}
+                          className="flex-1 px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                        />
+                        <input
+                          type="text"
+                          placeholder="Href"
+                          value={link.href}
+                          onChange={(e) => {
+                            const newLinks = [...content.footer.links]
+                            newLinks[idx].href = e.target.value
+                            setContent({ ...content, footer: { ...content.footer, links: newLinks } })
+                          }}
+                          className="flex-1 px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                        />
+                        <button
+                          onClick={() => setContent({
+                            ...content,
+                            footer: { ...content.footer, links: content.footer.links.filter((_, i) => i !== idx) }
+                          })}
+                          className="text-red-400 hover:text-red-300 transition"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Copyright Text</label>
+                  <input
+                    type="text"
+                    value={content.footer.copyright}
+                    onChange={(e) => setContent({ ...content, footer: { ...content.footer, copyright: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Hero Tab */}
           {activeTab === 'hero' && (
             <div className="space-y-6">
