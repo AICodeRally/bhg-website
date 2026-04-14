@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Save, LogOut } from 'lucide-react'
+import { Save, LogOut, Plus, Trash2 } from 'lucide-react'
 
 interface Content {
   hero: {
@@ -21,6 +21,10 @@ interface Content {
     benefits: string[]
     capabilities: string[]
   }
+  pillars: { heading: string; subheading: string }
+  pillarCards: Array<{ title: string; description: string }>
+  services: { heading: string; subheading: string }
+  serviceCards: Array<{ title: string; description: string }>
   whyBhg: {
     heading: string
     subheading: string
@@ -31,13 +35,23 @@ interface Content {
     subheading: string
     ctaText: string
   }
+  vendors: { heading: string; logos: string[] }
+  testimonials: {
+    heading: string
+    subheading: string
+    quotes: Array<{ quote: string; author: string; company: string }>
+  }
+  trustedCompanies: string[]
 }
+
+type TabName = 'hero' | 'stats' | 'vendors' | 'services' | 'pillars' | 'testimonials' | 'cta'
 
 export default function AdminDashboard() {
   const router = useRouter()
   const [content, setContent] = useState<Content | null>(null)
   const [isSaving, setIsSaving] = useState(false)
   const [saveMessage, setSaveMessage] = useState('')
+  const [activeTab, setActiveTab] = useState<TabName>('hero')
 
   useEffect(() => {
     const token = localStorage.getItem('adminToken')
@@ -94,9 +108,19 @@ export default function AdminDashboard() {
     )
   }
 
+  const tabs: Array<{ id: TabName; label: string }> = [
+    { id: 'hero', label: 'Hero' },
+    { id: 'stats', label: 'Stats' },
+    { id: 'vendors', label: 'Vendors' },
+    { id: 'services', label: 'Services' },
+    { id: 'pillars', label: 'Pillars' },
+    { id: 'testimonials', label: 'Testimonials' },
+    { id: 'cta', label: 'CTA' },
+  ]
+
   return (
     <div className="min-h-screen bg-black p-6">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-4xl font-bold gradient-text">BHG Admin Dashboard</h1>
           <button
@@ -119,151 +143,475 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        <div className="space-y-8">
-          {/* Hero Section */}
-          <div className="glass-card p-6">
-            <h2 className="text-2xl font-bold mb-6 text-white">Hero Section</h2>
-            <div className="space-y-4">
+        {/* Tab Navigation */}
+        <div className="flex gap-2 mb-8 border-b border-white/20 overflow-x-auto">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-3 font-medium transition whitespace-nowrap ${
+                activeTab === tab.id
+                  ? 'text-white border-b-2 border-white/80'
+                  : 'text-white/60 hover:text-white'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab Content */}
+        <div className="glass-card p-8 mb-8">
+          {/* Hero Tab */}
+          {activeTab === 'hero' && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Hero Section</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Badge Text</label>
+                  <input
+                    type="text"
+                    value={content.hero.badge}
+                    onChange={(e) => setContent({ ...content, hero: { ...content.hero, badge: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Main Heading</label>
+                  <input
+                    type="text"
+                    value={content.hero.mainHeading}
+                    onChange={(e) => setContent({ ...content, hero: { ...content.hero, mainHeading: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Highlight Text (appears in gradient)</label>
+                  <input
+                    type="text"
+                    value={content.hero.highlightText}
+                    onChange={(e) => setContent({ ...content, hero: { ...content.hero, highlightText: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Subheading</label>
+                  <input
+                    type="text"
+                    value={content.hero.subheading}
+                    onChange={(e) => setContent({ ...content, hero: { ...content.hero, subheading: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Description</label>
+                  <textarea
+                    value={content.hero.description}
+                    onChange={(e) => setContent({ ...content, hero: { ...content.hero, description: e.target.value } })}
+                    rows={3}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-white/80 mb-2 text-sm font-medium">Primary CTA Text</label>
+                    <input
+                      type="text"
+                      value={content.hero.ctaText}
+                      onChange={(e) => setContent({ ...content, hero: { ...content.hero, ctaText: e.target.value } })}
+                      className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-white/80 mb-2 text-sm font-medium">Secondary CTA Text</label>
+                    <input
+                      type="text"
+                      value={content.hero.secondaryCtaText}
+                      onChange={(e) => setContent({ ...content, hero: { ...content.hero, secondaryCtaText: e.target.value } })}
+                      className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Stats Tab */}
+          {activeTab === 'stats' && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-white">Stats</h2>
+                <button
+                  onClick={() => setContent({
+                    ...content,
+                    stats: [...content.stats, { number: '', label: '' }]
+                  })}
+                  className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition"
+                >
+                  <Plus className="w-4 h-4" /> Add Stat
+                </button>
+              </div>
+              <div className="space-y-4">
+                {content.stats.map((stat, idx) => (
+                  <div key={idx} className="p-4 bg-white/5 rounded-lg border border-white/10 space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-white/60 text-sm">Stat {idx + 1}</span>
+                      <button
+                        onClick={() => setContent({
+                          ...content,
+                          stats: content.stats.filter((_, i) => i !== idx)
+                        })}
+                        className="text-red-400 hover:text-red-300 transition"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Number (e.g., 8→3 weeks)"
+                      value={stat.number}
+                      onChange={(e) => {
+                        const newStats = [...content.stats]
+                        newStats[idx].number = e.target.value
+                        setContent({ ...content, stats: newStats })
+                      }}
+                      className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Label (e.g., Avg Cycle Compression)"
+                      value={stat.label}
+                      onChange={(e) => {
+                        const newStats = [...content.stats]
+                        newStats[idx].label = e.target.value
+                        setContent({ ...content, stats: newStats })
+                      }}
+                      className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Vendors Tab */}
+          {activeTab === 'vendors' && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Vendor Logos</h2>
               <div>
-                <label className="block text-white/80 mb-2 text-sm font-medium">Badge Text</label>
+                <label className="block text-white/80 mb-2 text-sm font-medium">Section Heading</label>
                 <input
                   type="text"
-                  value={content.hero.badge}
-                  onChange={(e) =>
-                    setContent({
-                      ...content,
-                      hero: { ...content.hero, badge: e.target.value },
-                    })
-                  }
+                  value={content.vendors.heading}
+                  onChange={(e) => setContent({ ...content, vendors: { ...content.vendors, heading: e.target.value } })}
                   className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
                 />
               </div>
               <div>
-                <label className="block text-white/80 mb-2 text-sm font-medium">Main Heading</label>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="block text-white/80 text-sm font-medium">Logos</label>
+                  <button
+                    onClick={() => setContent({
+                      ...content,
+                      vendors: { ...content.vendors, logos: [...content.vendors.logos, ''] }
+                    })}
+                    className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded text-white transition text-sm"
+                  >
+                    <Plus className="w-4 h-4" /> Add Logo
+                  </button>
+                </div>
+                <div className="space-y-2">
+                  {content.vendors.logos.map((logo, idx) => (
+                    <div key={idx} className="flex gap-2">
+                      <input
+                        type="text"
+                        placeholder="Logo name (e.g., Anaplan)"
+                        value={logo}
+                        onChange={(e) => {
+                          const newLogos = [...content.vendors.logos]
+                          newLogos[idx] = e.target.value
+                          setContent({ ...content, vendors: { ...content.vendors, logos: newLogos } })
+                        }}
+                        className="flex-1 px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                      />
+                      <button
+                        onClick={() => setContent({
+                          ...content,
+                          vendors: { ...content.vendors, logos: content.vendors.logos.filter((_, i) => i !== idx) }
+                        })}
+                        className="px-3 py-2 text-red-400 hover:text-red-300 transition"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Services Tab */}
+          {activeTab === 'services' && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-white">Services</h2>
+                <button
+                  onClick={() => setContent({
+                    ...content,
+                    serviceCards: [...content.serviceCards, { title: '', description: '' }]
+                  })}
+                  className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition"
+                >
+                  <Plus className="w-4 h-4" /> Add Service
+                </button>
+              </div>
+              <div className="space-y-4">
+                {content.serviceCards.map((service, idx) => (
+                  <div key={idx} className="p-4 bg-white/5 rounded-lg border border-white/10 space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-white/60 text-sm">Service {idx + 1}</span>
+                      <button
+                        onClick={() => setContent({
+                          ...content,
+                          serviceCards: content.serviceCards.filter((_, i) => i !== idx)
+                        })}
+                        className="text-red-400 hover:text-red-300 transition"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Title"
+                      value={service.title}
+                      onChange={(e) => {
+                        const newServices = [...content.serviceCards]
+                        newServices[idx].title = e.target.value
+                        setContent({ ...content, serviceCards: newServices })
+                      }}
+                      className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                    />
+                    <textarea
+                      placeholder="Description"
+                      value={service.description}
+                      onChange={(e) => {
+                        const newServices = [...content.serviceCards]
+                        newServices[idx].description = e.target.value
+                        setContent({ ...content, serviceCards: newServices })
+                      }}
+                      rows={2}
+                      className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Pillars Tab */}
+          {activeTab === 'pillars' && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-white">Pillars</h2>
+                <button
+                  onClick={() => setContent({
+                    ...content,
+                    pillarCards: [...content.pillarCards, { title: '', description: '' }]
+                  })}
+                  className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition"
+                >
+                  <Plus className="w-4 h-4" /> Add Pillar
+                </button>
+              </div>
+              <div>
+                <label className="block text-white/80 mb-2 text-sm font-medium">Section Heading</label>
                 <input
                   type="text"
-                  value={content.hero.mainHeading}
-                  onChange={(e) =>
-                    setContent({
-                      ...content,
-                      hero: { ...content.hero, mainHeading: e.target.value },
-                    })
-                  }
-                  className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  value={content.pillars.heading}
+                  onChange={(e) => setContent({ ...content, pillars: { ...content.pillars, heading: e.target.value } })}
+                  className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40 mb-4"
                 />
-              </div>
-              <div>
-                <label className="block text-white/80 mb-2 text-sm font-medium">Highlight Text (in gradient)</label>
+                <label className="block text-white/80 mb-2 text-sm font-medium">Section Subheading</label>
                 <input
                   type="text"
-                  value={content.hero.highlightText}
-                  onChange={(e) =>
-                    setContent({
-                      ...content,
-                      hero: { ...content.hero, highlightText: e.target.value },
-                    })
-                  }
+                  value={content.pillars.subheading}
+                  onChange={(e) => setContent({ ...content, pillars: { ...content.pillars, subheading: e.target.value } })}
                   className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
                 />
               </div>
+              <div className="space-y-4">
+                {content.pillarCards.map((pillar, idx) => (
+                  <div key={idx} className="p-4 bg-white/5 rounded-lg border border-white/10 space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-white/60 text-sm">Pillar {idx + 1}</span>
+                      <button
+                        onClick={() => setContent({
+                          ...content,
+                          pillarCards: content.pillarCards.filter((_, i) => i !== idx)
+                        })}
+                        className="text-red-400 hover:text-red-300 transition"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <input
+                      type="text"
+                      placeholder="Title"
+                      value={pillar.title}
+                      onChange={(e) => {
+                        const newPillars = [...content.pillarCards]
+                        newPillars[idx].title = e.target.value
+                        setContent({ ...content, pillarCards: newPillars })
+                      }}
+                      className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                    />
+                    <textarea
+                      placeholder="Description"
+                      value={pillar.description}
+                      onChange={(e) => {
+                        const newPillars = [...content.pillarCards]
+                        newPillars[idx].description = e.target.value
+                        setContent({ ...content, pillarCards: newPillars })
+                      }}
+                      rows={2}
+                      className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Testimonials Tab */}
+          {activeTab === 'testimonials' && (
+            <div className="space-y-6">
+              <div className="flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-white">Testimonials</h2>
+                <button
+                  onClick={() => setContent({
+                    ...content,
+                    testimonials: {
+                      ...content.testimonials,
+                      quotes: [...content.testimonials.quotes, { quote: '', author: '', company: '' }]
+                    }
+                  })}
+                  className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-white transition"
+                >
+                  <Plus className="w-4 h-4" /> Add Testimonial
+                </button>
+              </div>
               <div>
-                <label className="block text-white/80 mb-2 text-sm font-medium">Subheading</label>
+                <label className="block text-white/80 mb-2 text-sm font-medium">Section Heading</label>
                 <input
                   type="text"
-                  value={content.hero.subheading}
-                  onChange={(e) =>
-                    setContent({
-                      ...content,
-                      hero: { ...content.hero, subheading: e.target.value },
-                    })
-                  }
+                  value={content.testimonials.heading}
+                  onChange={(e) => setContent({ ...content, testimonials: { ...content.testimonials, heading: e.target.value } })}
+                  className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40 mb-4"
+                />
+                <label className="block text-white/80 mb-2 text-sm font-medium">Section Subheading</label>
+                <input
+                  type="text"
+                  value={content.testimonials.subheading}
+                  onChange={(e) => setContent({ ...content, testimonials: { ...content.testimonials, subheading: e.target.value } })}
                   className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
                 />
               </div>
-              <div>
-                <label className="block text-white/80 mb-2 text-sm font-medium">Description</label>
-                <textarea
-                  value={content.hero.description}
-                  onChange={(e) =>
-                    setContent({
-                      ...content,
-                      hero: { ...content.hero, description: e.target.value },
-                    })
-                  }
-                  rows={3}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
-                />
+              <div className="space-y-4">
+                {content.testimonials.quotes.map((testimonial, idx) => (
+                  <div key={idx} className="p-4 bg-white/5 rounded-lg border border-white/10 space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-white/60 text-sm">Testimonial {idx + 1}</span>
+                      <button
+                        onClick={() => setContent({
+                          ...content,
+                          testimonials: {
+                            ...content.testimonials,
+                            quotes: content.testimonials.quotes.filter((_, i) => i !== idx)
+                          }
+                        })}
+                        className="text-red-400 hover:text-red-300 transition"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <textarea
+                      placeholder="Quote"
+                      value={testimonial.quote}
+                      onChange={(e) => {
+                        const newQuotes = [...content.testimonials.quotes]
+                        newQuotes[idx].quote = e.target.value
+                        setContent({ ...content, testimonials: { ...content.testimonials, quotes: newQuotes } })
+                      }}
+                      rows={2}
+                      className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Author name"
+                      value={testimonial.author}
+                      onChange={(e) => {
+                        const newQuotes = [...content.testimonials.quotes]
+                        newQuotes[idx].author = e.target.value
+                        setContent({ ...content, testimonials: { ...content.testimonials, quotes: newQuotes } })
+                      }}
+                      className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Company"
+                      value={testimonial.company}
+                      onChange={(e) => {
+                        const newQuotes = [...content.testimonials.quotes]
+                        newQuotes[idx].company = e.target.value
+                        setContent({ ...content, testimonials: { ...content.testimonials, quotes: newQuotes } })
+                      }}
+                      className="w-full px-3 py-2 bg-white/5 border border-white/20 rounded text-white text-sm focus:outline-none focus:border-white/40"
+                    />
+                  </div>
+                ))}
               </div>
-              <div className="grid grid-cols-2 gap-4">
+            </div>
+          )}
+
+          {/* CTA Tab */}
+          {activeTab === 'cta' && (
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Bottom CTA</h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Heading</label>
+                  <input
+                    type="text"
+                    value={content.cta.heading}
+                    onChange={(e) => setContent({ ...content, cta: { ...content.cta, heading: e.target.value } })}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  />
+                </div>
+                <div>
+                  <label className="block text-white/80 mb-2 text-sm font-medium">Subheading</label>
+                  <textarea
+                    value={content.cta.subheading}
+                    onChange={(e) => setContent({ ...content, cta: { ...content.cta, subheading: e.target.value } })}
+                    rows={3}
+                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
+                  />
+                </div>
                 <div>
                   <label className="block text-white/80 mb-2 text-sm font-medium">CTA Button Text</label>
                   <input
                     type="text"
-                    value={content.hero.ctaText}
-                    onChange={(e) =>
-                      setContent({
-                        ...content,
-                        hero: { ...content.hero, ctaText: e.target.value },
-                      })
-                    }
-                    className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
-                  />
-                </div>
-                <div>
-                  <label className="block text-white/80 mb-2 text-sm font-medium">Secondary Button Text</label>
-                  <input
-                    type="text"
-                    value={content.hero.secondaryCtaText}
-                    onChange={(e) =>
-                      setContent({
-                        ...content,
-                        hero: { ...content.hero, secondaryCtaText: e.target.value },
-                      })
-                    }
+                    value={content.cta.ctaText}
+                    onChange={(e) => setContent({ ...content, cta: { ...content.cta, ctaText: e.target.value } })}
                     className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
                   />
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* CTA Section */}
-          <div className="glass-card p-6">
-            <h2 className="text-2xl font-bold mb-6 text-white">Bottom CTA</h2>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-white/80 mb-2 text-sm font-medium">Heading</label>
-                <input
-                  type="text"
-                  value={content.cta.heading}
-                  onChange={(e) =>
-                    setContent({
-                      ...content,
-                      cta: { ...content.cta, heading: e.target.value },
-                    })
-                  }
-                  className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
-                />
-              </div>
-              <div>
-                <label className="block text-white/80 mb-2 text-sm font-medium">Subheading</label>
-                <textarea
-                  value={content.cta.subheading}
-                  onChange={(e) =>
-                    setContent({
-                      ...content,
-                      cta: { ...content.cta, subheading: e.target.value },
-                    })
-                  }
-                  rows={2}
-                  className="w-full px-4 py-2 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-white/40"
-                />
-              </div>
-            </div>
-          </div>
+          )}
         </div>
 
-        <div className="mt-8 flex gap-4">
+        {/* Save Button */}
+        <div className="flex gap-4">
           <button
             onClick={handleSave}
             disabled={isSaving}
