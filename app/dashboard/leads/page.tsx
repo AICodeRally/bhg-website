@@ -24,9 +24,23 @@ export default function LeadsDashboard() {
   const [sortBy, setSortBy] = useState<string>('date')
 
   useEffect(() => {
-    // TODO: Replace with actual API call to fetch leads
-    // For now, this is a placeholder
-    setLoading(false)
+    const fetchLeads = async () => {
+      const token = localStorage.getItem('adminToken') || ''
+      try {
+        const res = await fetch('/api/admin/save-leads', {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        if (res.ok) {
+          const data = await res.json()
+          setLeads(data)
+        }
+      } catch (e) {
+        console.error('Failed to load leads:', e)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchLeads()
   }, [])
 
   const filteredLeads = leads
